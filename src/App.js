@@ -11,7 +11,9 @@ class App extends React.Component {
     super(props);
     this.state = {
       filterText: '',
-      selectedBuilding: 0
+      selectedBuilding: 0,
+      addedBuildings: [],
+      numberOfAddedBuildings: 0
     };
   }
 
@@ -27,6 +29,14 @@ class App extends React.Component {
       selectedBuilding: id
     });
     //Here you will need to update the selectedBuilding property of state to the id passed into this function
+  }
+
+  addedBuildingsUpdate(newBuilding) {
+    newBuilding.id = newBuilding.id + this.state.numberOfAddedBuildings;
+    this.setState({
+      numberOfAddedBuildings: this.state.numberOfAddedBuildings + 1
+    })
+    this.state.addedBuildings.push(newBuilding);
   }
 
   render() {
@@ -45,15 +55,18 @@ class App extends React.Component {
             <div className="column1">
               <div className="tableWrapper">
                 <table className="table table-striped table-hover">
-                  <tr>
-                    <td>
-                      <b>Code Building</b>
-                    </td>
-                  </tr>
+                  <thead>
+                    <tr>
+                      <td>
+                        <b>Code Building</b>
+                      </td>
+                    </tr>
+                  </thead>
                   <BuildingList
                     data={this.props.data}
                     filterText={this.state.filterText}
-                    selectedUpdate ={this.selectedUpdate.bind(this)}
+                    selectedUpdate={this.selectedUpdate.bind(this)}
+                    addedBuildings={this.state.addedBuildings}
                   />
                 </table>
               </div>
@@ -62,7 +75,12 @@ class App extends React.Component {
               <ViewBuilding
                 selectedBuilding={this.state.selectedBuilding}
                 data={this.props.data}
+                addedBuildings={this.state.addedBuildings}
                 />
+              <AddBuilding
+                addedBuildingsUpdate={this.addedBuildingsUpdate.bind(this)}
+              />
+              <RemoveBuilding />
             </div>
           </div>
           <Credit />

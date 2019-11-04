@@ -2,14 +2,29 @@ import React from 'react';
 
 class ViewBuilding extends React.Component {
 	render() {
-		const { data, selectedBuilding } = this.props;
-		const buildingSelected = data
+		const { data, selectedBuilding, addedBuildings } = this.props;
+
+		const oldBuildingSelected = data
 			.filter(directory => {
 				//removes items that do not match current filter text
 				return directory.id === selectedBuilding;
 		});
-		console.log(buildingSelected);
+
+		const addedBuildingSelected = addedBuildings
+		.filter(directory => {
+			//removes items that do not match current filter text
+			return directory.id === selectedBuilding;
+		});
+
 		var codeInfo, nameInfo, addressInfo, latInfo, longInfo, displayInfo = '';
+		var buildingSelected = [];
+
+		if (oldBuildingSelected.length > 0)
+			buildingSelected = oldBuildingSelected;
+
+		if (addedBuildingSelected.length > 0)
+			buildingSelected = addedBuildingSelected;
+
 		if (buildingSelected.length > 0)
 		{
 			codeInfo = buildingSelected[0].code;
@@ -23,7 +38,6 @@ class ViewBuilding extends React.Component {
 				latInfo = buildingSelected[0].coordinates.latitude;
 				longInfo = buildingSelected[0].coordinates.longitude;
 			}
-			console.log(codeInfo);
 			displayInfo = (
 				<ul>
 						<li>Code:{' '}{codeInfo}</li>
