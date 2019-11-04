@@ -9,36 +9,44 @@ import RemoveBuilding from './components/RemoveBuilding';
 class App extends React.Component {
   constructor(props) {
     super(props);
+
+    this.removedBuildingsUpdate = this.removedBuildingsUpdate.bind(this);
+
     this.state = {
       filterText: '',
       selectedBuilding: 0,
       addedBuildings: [],
+      removedBuildings: [],
       numberOfAddedBuildings: 0
     };
   }
 
   filterUpdate(value) {
+    //Here you will need to set the filterText property of state to the value passed into this function
     this.setState({
       filterText: value
     });
-    //Here you will need to set the filterText property of state to the value passed into this function
   }
 
   selectedUpdate(id) {
+    //Here you will need to update the selectedBuilding property of state to the id passed into this function
     this.setState({
       selectedBuilding: id
     });
-    //Here you will need to update the selectedBuilding property of state to the id passed into this function
   }
 
   addedBuildingsUpdate(newBuilding) {
     newBuilding.id = newBuilding.id + this.state.numberOfAddedBuildings;
     this.setState({
       numberOfAddedBuildings: this.state.numberOfAddedBuildings + 1
-    })
+    });
     this.state.addedBuildings.push(newBuilding);
   }
 
+  removedBuildingsUpdate() {
+    this.state.removedBuildings.push(this.state.selectedBuilding);
+    console.log(this.state.removedBuildings);
+  }
   render() {
     
     return (
@@ -67,6 +75,7 @@ class App extends React.Component {
                     filterText={this.state.filterText}
                     selectedUpdate={this.selectedUpdate.bind(this)}
                     addedBuildings={this.state.addedBuildings}
+                    removedBuildings={this.state.removedBuildings}
                   />
                 </table>
               </div>
@@ -77,10 +86,15 @@ class App extends React.Component {
                 data={this.props.data}
                 addedBuildings={this.state.addedBuildings}
                 />
+              <RemoveBuilding
+                selectedBuilding={this.state.selectedBuilding}
+                selectedUpdate={this.selectedUpdate.bind(this)}
+                removedBuildings={this.state.removedBuildings}
+                removedBuildingsUpdate={this.removedBuildingsUpdate}
+                />
               <AddBuilding
                 addedBuildingsUpdate={this.addedBuildingsUpdate.bind(this)}
               />
-              <RemoveBuilding />
             </div>
           </div>
           <Credit />

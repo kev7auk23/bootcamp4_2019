@@ -80,8 +80,8 @@ class AddBuilding extends React.Component {
                 longitude: ''
             }
         })
-
     }
+    
     render() {
         return (
             <div style={{marginTop: 20}}>

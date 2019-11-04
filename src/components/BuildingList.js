@@ -2,9 +2,17 @@ import React from 'react';
 
 class BuilingList extends React.Component {
 	render() {
-		const { data, filterText, selectedUpdate, addedBuildings } = this.props;
+		const { data, filterText, selectedUpdate, addedBuildings, removedBuildings } = this.props;
 
 		const buildingList = data
+			.filter(directory => {
+				for (var i = 0; i < removedBuildings.length; i++)
+				{
+					if (directory.id === removedBuildings[i])
+					return false;
+				}
+				return true;
+			})
 			.filter(directory => {
 				//removes items that do not match current filter text
 				return directory.name.toLowerCase().indexOf(filterText.toLowerCase()) >= 0
@@ -21,6 +29,14 @@ class BuilingList extends React.Component {
 				);
 		});
 		const addedBuildingList = addedBuildings
+			.filter(directory => {
+				for (var i = 0; i < removedBuildings.length; i++)
+				{
+					if (directory.id === removedBuildings[i])
+					return false;
+				}
+				return true;
+			})
 			.filter(directory => {
 				//removes items that do not match current filter text
 				return directory.name.toLowerCase().indexOf(filterText.toLowerCase()) >= 0
