@@ -3,6 +3,8 @@ import Search from './components/Search';
 import ViewBuilding from './components/ViewBuilding';
 import BuildingList from './components/BuildingList';
 import Credit from './components/Credit';
+import AddBuilding from './components/AddBuilding';
+import RemoveBuilding from './components/RemoveBuilding';
 
 class App extends React.Component {
   constructor(props) {
@@ -14,10 +16,16 @@ class App extends React.Component {
   }
 
   filterUpdate(value) {
+    this.setState({
+      filterText: value
+    });
     //Here you will need to set the filterText property of state to the value passed into this function
   }
 
   selectedUpdate(id) {
+    this.setState({
+      selectedBuilding: id
+    });
     //Here you will need to update the selectedBuilding property of state to the id passed into this function
   }
 
@@ -29,7 +37,9 @@ class App extends React.Component {
           <h1>UF Directory App</h1>
         </div>
 
-        <Search/>
+        <Search filterText={this.state.filterText}
+                filterUpdate={this.filterUpdate.bind(this)}
+                />
         <main>
           <div className="row">
             <div className="column1">
@@ -42,12 +52,17 @@ class App extends React.Component {
                   </tr>
                   <BuildingList
                     data={this.props.data}
+                    filterText={this.state.filterText}
+                    selectedUpdate ={this.selectedUpdate.bind(this)}
                   />
                 </table>
               </div>
             </div>
             <div className="column2">
-              <ViewBuilding />
+              <ViewBuilding
+                selectedBuilding={this.state.selectedBuilding}
+                data={this.props.data}
+                />
             </div>
           </div>
           <Credit />
