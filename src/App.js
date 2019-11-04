@@ -50,9 +50,9 @@ class App extends React.Component {
   render() {
     
     return (
-      <div className="bg">
-        <div className="row">
-          <h1>UF Directory App</h1>
+      <div className="container-fluid">
+        <div style={{marginTop: 20}} >
+          <h1 className="text-center">UF Directory App</h1>
         </div>
 
         <Search filterText={this.state.filterText}
@@ -60,14 +60,15 @@ class App extends React.Component {
                 />
         <main>
           <div className="row">
-            <div className="column1">
+            <div className="col">
               <div className="tableWrapper">
                 <table className="table table-striped table-hover">
                   <thead>
                     <tr>
                       <td>
-                        <b>Code Building</b>
+                        <b>Code</b>
                       </td>
+                      <td><b>Building</b></td>
                     </tr>
                   </thead>
                   <BuildingList
@@ -80,18 +81,21 @@ class App extends React.Component {
                 </table>
               </div>
             </div>
-            <div className="column2">
-              <ViewBuilding
-                selectedBuilding={this.state.selectedBuilding}
-                data={this.props.data}
-                addedBuildings={this.state.addedBuildings}
-                />
-              <RemoveBuilding
-                selectedBuilding={this.state.selectedBuilding}
-                selectedUpdate={this.selectedUpdate.bind(this)}
-                removedBuildings={this.state.removedBuildings}
-                removedBuildingsUpdate={this.removedBuildingsUpdate}
-                />
+            <div className="col">
+              <div  className="alert-primary container-fluid"
+                    style={{paddingTop: 20, paddingBottom: 6}}>
+                <ViewBuilding
+                  selectedBuilding={this.state.selectedBuilding}
+                  data={this.props.data}
+                  addedBuildings={this.state.addedBuildings}
+                  />
+                <RemoveBuilding
+                  selectedBuilding={this.state.selectedBuilding}
+                  selectedUpdate={this.selectedUpdate.bind(this)}
+                  removedBuildings={this.state.removedBuildings}
+                  removedBuildingsUpdate={this.removedBuildingsUpdate}
+                  />
+              </div>
               <AddBuilding
                 addedBuildingsUpdate={this.addedBuildingsUpdate.bind(this)}
               />

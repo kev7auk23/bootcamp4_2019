@@ -6,14 +6,12 @@ class ViewBuilding extends React.Component {
 
 		const oldBuildingSelected = data
 			.filter(directory => {
-				//removes items that do not match current filter text
 				return directory.id === selectedBuilding;
 		});
 
 		const addedBuildingSelected = addedBuildings
-		.filter(directory => {
-			//removes items that do not match current filter text
-			return directory.id === selectedBuilding;
+			.filter(directory => {
+				return directory.id === selectedBuilding;
 		});
 
 		var codeInfo, nameInfo, addressInfo, latInfo, longInfo, displayInfo = '';
